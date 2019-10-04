@@ -1,0 +1,22 @@
+﻿  main.cpp
+C:\WorkPlace\RayTracing\hitable_list.h(24,31): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\material.h(23,67): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\material.h(23,50): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\material.h(23,33): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\camera.h(46,50): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\camera.h(46,33): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(57,5): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\main.cpp(71,11): warning C4244:  “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(72,15): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(72,66): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\main.cpp(86,21): warning C4244:  “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(87,51): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(87,18): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(92,149): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(92,114): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(92,79): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(96,123): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(96,93): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(96,63): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\main.cpp(96,154): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+  RayTracing.vcxproj -> C:\WorkPlace\RayTracing\Debug\RayTracing.exe
