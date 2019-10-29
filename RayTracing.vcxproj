@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="move_sphere.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="hitable.h" />
     <ClInclude Include="hitable_list.h" />

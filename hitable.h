@@ -6,10 +6,10 @@ class material;
 
 struct hit_record
 {
-	float t;
-	vec3 p;
-	vec3 normal;
-	material* material_ptr;
+	float t;					//射线当前点参数
+	vec3 p;						//hit点
+	vec3 normal;				//hit点法线
+	material* material_ptr;		//材质信息
 };
 
 class hitable

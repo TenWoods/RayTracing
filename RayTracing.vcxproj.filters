@@ -47,5 +47,8 @@
     <ClInclude Include="random.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="move_sphere.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

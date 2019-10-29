@@ -1,12 +1,13 @@
 #include "ray.h"
 #include "hitable_list.h"
 #include "sphere.h"
+#include "move_sphere.h"
 #include <float.h>
 #include "camera.h"
 #include "material.h"
 
-const int width = 1200;
-const int height = 800;
+const int width = 200;
+const int height = 100;
 const int sampleNum = 10;
 
 vec3 paint(const ray& r, hitable* world, int depth);
@@ -18,15 +19,8 @@ int main()
 	vec3 lookfrom(13.0f, 2.0f, 3.0f);
 	vec3 lookat(0.0f, 0.0f, 0.0f);
 	float distance_to_focus = 10.0;
-	float aperture = 0.1f;
-	camera c(lookfrom, lookat, vec3(0.0f, 1.0f, 0.0f), 20.0f, float(width) / float(height), aperture, distance_to_focus);
-	/*hitable* list[5];
-	list[0] = new sphere(0.5f, vec3(0.0f, 0.0f, -1.0f), new lambertian(vec3(0.1f, 0.2f, 0.5f)));
-	list[1] = new sphere(100.0f, vec3(0.0f, -100.5f, -1.0f), new lambertian(vec3(0.8f, 0.8f, 0.0f)));
-	list[2] = new sphere(0.5f, vec3(1.0f, 0.0f, -1.0f), new metal(vec3(0.8f, 0.6f, 0.2f), 0.5f));
-	list[3] = new sphere(0.5f, vec3(-1.0f, 0.0f, -1.0f), new dielectric(1.5f));
-	list[4] = new sphere(-0.45f, vec3(-1.0f, 0.0f, -1.0f), new dielectric(1.5f));
-	hitable* world = new hitable_list(list, 5);*/
+	float aperture = 0.0f;
+	camera c(lookfrom, lookat, vec3(0.0f, 1.0f, 0.0f), 20.0f, float(width) / float(height), aperture, distance_to_focus, 0.0f, 1.0f);
 	hitable* world = scene();
 	for (int i = height - 1; i >= 0; i--)
 	{
@@ -35,8 +29,8 @@ int main()
 			vec3 color(0.0f, 0.0f, 0.0f);
 			for (int k = 0; k < sampleNum; k++)
 			{
-				float u = float(j + random_double()) / float(width);
-				float v = float(i + random_double()) / float(height);
+				float u = float(j + random_float()) / float(width);
+				float v = float(i + random_float()) / float(height);
 				ray r = c.get_ray(u, v);
 				color += paint(r, world, 0);
 			}
@@ -64,7 +58,7 @@ vec3 paint(const ray& r, hitable* world, int depth)
 		}
 		else 
 		{
-			return vec3(0, 0, 0);
+			return vec3(1.0f, 1.0f, 1.0f);
 		}
 	}
 	else 
@@ -85,17 +79,18 @@ hitable* scene()
 	{
 		for (int b = -11; b < 11; b++)
 		{
-			float choose_mat = random_double();
-			vec3 center(a + 0.9 * random_double(), 0.2f, b + 0.9 * random_double());
+			float choose_mat = random_float();
+			vec3 center(a + 0.9 * random_float(), 0.2f, b + 0.9 * random_float());
 			if ((center - vec3(4.0f, 0.2f, 0.0f)).length() > 0.9f)
 			{
 				if (choose_mat < 0.8f) //diffuse
 				{
-					list[i++] = new sphere(0.2f, center, new lambertian(vec3(random_double() * random_double(), random_double() * random_double(), random_double() * random_double())));
+					//list[i++] = new sphere(0.2f, center, new lambertian(vec3(random_float() * random_float(), random_float() * random_float(), random_float() * random_float())));
+					list[i++] = new move_sphere(0.2f, center, center + vec3(0.0f, 0.5f * random_float(), 0.0f), new lambertian(vec3(random_float() * random_float(), random_float() * random_float(), random_float() * random_float())), 0.0f, 1.0f);
 				}
 				else if (choose_mat < 0.95f) //metal
 				{
-					list[i++] = new sphere(0.2f, center, new metal(vec3(0.5f * (1 + random_double()), 0.5f * (1 + random_double()), 0.5f * (1 + random_double())), 0.5f * random_double()));
+					list[i++] = new sphere(0.2f, center, new metal(vec3(0.5f * (1 + random_float()), 0.5f * (1 + random_float()), 0.5f * (1 + random_float())), 0.5f * random_float()));
 				}
 				else //glass
 				{

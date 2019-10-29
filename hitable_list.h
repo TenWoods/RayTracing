@@ -18,13 +18,14 @@ public :
 	{
 		hit_record temp;
 		bool hit_result = false;
-		double closest_so_far = t_max;
+		double closest = t_max;
 		for (int i = 0; i < list_size; i++)
 		{
-			if (list[i]->hit(r, t_min, closest_so_far, temp))
+			//这里相当于深度测试
+			if (list[i]->hit(r, t_min, closest, temp))
 			{
 				hit_result = true;
-				closest_so_far = temp.t;
+				closest = temp.t;
 				rec = temp;
 			}
 		}

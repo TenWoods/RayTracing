@@ -8,9 +8,10 @@ class ray
 private:
 	vec3 A;
 	vec3 B;
+	float _time;
 public :
 	ray() {}
-	ray(vec3 origin, vec3 direction) : A(origin), B(direction)
+	ray(vec3 origin, vec3 direction, float time = 0.0f) : A(origin), B(direction), _time(time)
 	{
 
 	}
@@ -26,7 +27,10 @@ public :
 	{
 		return A + t * B;
 	}
-
+	float time() const
+	{
+		return _time;
+	}
 };
 
 #endif // !RAY

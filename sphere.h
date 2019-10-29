@@ -10,7 +10,7 @@ private :
 	vec3 center;
 	material* m;
 public :
-	sphere() { radius = 0; }
+	sphere() { }
 	sphere(float radius, vec3 center, material* material) : radius(radius), center(center), m(material)
 	{
 
@@ -22,7 +22,7 @@ public :
 		float a = dot(r.direction(), r.direction());
 		float b = 2.0f * dot(r.direction(), oc);
 		float c = dot(oc, oc) - radius * radius;
-		float delta = b * b - 4 * a * c;
+		float delta = b * b - 4.0f * a * c;
 		if (delta < 0)
 		{
 			return false;

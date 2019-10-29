@@ -20,7 +20,7 @@ public :
 		vec3 p;
 		do
 		{
-			p = 2.0f * vec3(random_double(), random_double(), random_double()) - vec3(1.0f, 1.0f, 1.0f);
+			p = 2.0f * vec3(random_float(), random_float(), random_float()) - vec3(1.0f, 1.0f, 1.0f);
 		} while (p.squared_length() >= 1.0f);
 		return p;
 	}
@@ -49,7 +49,7 @@ public:
 	virtual bool scatter(const ray& ray_in, hit_record& rec, vec3& attenuation, ray& scattered) const
 	{
 		vec3 next_direction = rec.p + rec.normal + random_sphere_point();
-		scattered = ray(rec.p, next_direction - rec.p);
+		scattered = ray(rec.p, next_direction - rec.p, ray_in.time());
 		attenuation = albedo;
 		return true;
 	}
@@ -76,7 +76,7 @@ public:
 	virtual bool scatter(const ray& ray_in, hit_record& rec, vec3& attenuation, ray& scattered) const
 	{
 		vec3 next_direction = reflect(normalized_vector(ray_in.direction()), rec.normal);
-		scattered = ray(rec.p, next_direction + fuzz * random_sphere_point());
+		scattered = ray(rec.p, next_direction + fuzz * random_sphere_point(), ray_in.time());
 		attenuation = albedo;
 		return (dot(scattered.direction(), rec.normal) > 0);
 	}
@@ -119,13 +119,13 @@ public:
 		{
 			reflect_prob = 1.0f;
 		}
-		if (random_double() < reflect_prob)
+		if (random_float() < reflect_prob)
 		{
-			scattered = ray(rec.p, reflected);
+			scattered = ray(rec.p, reflected, ray_in.time());
 		}
 		else
 		{
-			scattered = ray(rec.p, refracted);
+			scattered = ray(rec.p, refracted, ray_in.time());
 		}
 		return true;
 	}
