@@ -1,0 +1,11 @@
+﻿  main.cpp
+C:\WorkPlace\RayTracing\Raytracing_next\hitable_list.h(25,31): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(51,5): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(67,11): warning C4244:  “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(68,15): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(68,66): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(83,50): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+  vec3.cpp
+  正在生成代码...
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(83,18): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+  Raytracing_next.vcxproj -> C:\WorkPlace\RayTracing\Raytracing_next\Debug\Raytracing_next.exe
