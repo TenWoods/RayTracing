@@ -5,23 +5,32 @@
 #include <float.h>
 #include "camera.h"
 #include "material.h"
+#include <fstream>
 
-const int width = 200;
-const int height = 100;
+const int width = 800;
+const int height = 600;
 const int sampleNum = 10;
 
 vec3 paint(const ray& r, hitable* world, int depth);
 hitable* scene();
+hitable* twoperlin();
 
 int main()
 { 
-	std::cout << "P3\n" << width << " " << height << std::endl << "255" << std::endl;
+	std::ofstream file;
+	file.open("output.ppm");
+	if (!file.is_open())
+	{
+		std::cout << "file open failed";
+		return -1;
+	}
+	file << "P3\n" << width << " " << height << std::endl << "255" << std::endl;
 	vec3 lookfrom(13.0f, 2.0f, 3.0f);
 	vec3 lookat(0.0f, 0.0f, 0.0f);
-	float distance_to_focus = 10.0;
+	float distance_to_focus = 10.0f;
 	float aperture = 0.0f;
 	camera c(lookfrom, lookat, vec3(0.0f, 1.0f, 0.0f), 20.0f, float(width) / float(height), aperture, distance_to_focus, 0.0f, 1.0f);
-	hitable* world = scene();
+	hitable* world = twoperlin();
 	for (int i = height - 1; i >= 0; i--)
 	{
 		for (int j = 0; j < width; j++)
@@ -39,7 +48,7 @@ int main()
 			int ir = int(255.99f * color[0]);
 			int ig = int(255.99f * color[1]);
 			int ib = int(255.99f * color[2]);
-			std::cout << ir << " " << ig << " " << ib << " " << std::endl;
+			file << ir << " " << ig << " " << ib << " " << std::endl;
 		}
 	}
 	return 0;
@@ -58,7 +67,7 @@ vec3 paint(const ray& r, hitable* world, int depth)
 		}
 		else 
 		{
-			return vec3(1.0f, 1.0f, 1.0f);
+			return vec3(0.0f, 0.0f, 0.0f);
 		}
 	}
 	else 
@@ -69,11 +78,22 @@ vec3 paint(const ray& r, hitable* world, int depth)
 	}
 }
 
+hitable* twoperlin()
+{
+	hitable** list = new hitable*[2];
+	texture* pertex = new noise_texture(4.0f);
+	/*list[0] = new sphere(1000, vec3(0, -1000, 0), new lambertian(new checker_texture(new const_texture(vec3(0.1f, 0.1f, 0.1f)), new const_texture(vec3(0.6f, 0.0f, 0.0f)))));
+	list[1] = new sphere(2, vec3(0, 2, 0), new lambertian(new checker_texture(new const_texture(vec3(0.2f, 0.3f, 0.1f)), new const_texture(vec3(0.9f, 0.9f, 0.9f)))));*/
+	list[0] = new sphere(1000.0f, vec3(0.0f, -1000.0f, 0.0f), new lambertian(pertex));
+	list[1] = new sphere(2.0f, vec3(0.0f, 2.0f, 0.0f), new lambertian(pertex));
+	return new hitable_list(list, 2);
+}
+
 hitable* scene()
 {
 	int n = 500;
 	hitable** list = new hitable * [n + 1];
-	list[0] = new sphere(1000, vec3(0.0f, -1000.0f, 0.0f), new lambertian(vec3(0.5f, 0.5f, 0.5f)));
+	list[0] = new sphere(1000, vec3(0.0f, -1000.0f, 0.0f), new lambertian(new checker_texture(new const_texture(vec3(0.2, 0.3, 0.1)),new const_texture(vec3(0.9, 0.9, 0.9)))));
 	int i = 1;
 	for (int a = -11; a < 11; a++)
 	{
@@ -85,8 +105,8 @@ hitable* scene()
 			{
 				if (choose_mat < 0.8f) //diffuse
 				{
-					//list[i++] = new sphere(0.2f, center, new lambertian(vec3(random_float() * random_float(), random_float() * random_float(), random_float() * random_float())));
-					list[i++] = new move_sphere(0.2f, center, center + vec3(0.0f, 0.5f * random_float(), 0.0f), new lambertian(vec3(random_float() * random_float(), random_float() * random_float(), random_float() * random_float())), 0.0f, 1.0f);
+					//list[i++] = new sphere(0.2f, center, new lambertian(new const_texture(vec3(random_float() * random_float(), random_float() * random_float(), random_float() * random_float()))));
+					list[i++] = new move_sphere(0.2f, center, center + vec3(0.0f, 0.5f * random_float(), 0.0f), new lambertian(new const_texture(vec3(random_float() * random_float(), random_float() * random_float(), random_float() * random_float()))), 0.0f, 1.0f);
 				}
 				else if (choose_mat < 0.95f) //metal
 				{
@@ -100,7 +120,7 @@ hitable* scene()
 		}
 	}
 	list[i++] = new sphere(1.0f, vec3(0.0f, 1.0f, 0.0f), new dielectric(1.5f));
-	list[i++] = new sphere(1.0f, vec3(-4.0f, 1.0f, 0.0f), new lambertian(vec3(0.4f, 0.2f, 0.1f)));
+	list[i++] = new sphere(1.0f, vec3(-4.0f, 1.0f, 0.0f), new lambertian(new const_texture(vec3(0.4f, 0.2f, 0.1f))));
 	list[i++] = new sphere(1.0f, vec3(4.0f, 1.0f, 0.0f), new metal(vec3(0.7f, 0.6f, 0.5f), 0.0f));
 	return new hitable_list(list, i);
 }

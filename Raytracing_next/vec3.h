@@ -12,12 +12,12 @@ public :
 	vec3() { vec[0] = 0; vec[1] = 0; vec[2] = 0; }
 	vec3(float x, float y, float z);
 
-	float x() { return vec[0]; }
-	float y() { return vec[1]; }
-	float z() { return vec[2]; }
-	float r() { return vec[0]; }
-	float g() { return vec[1]; }
-	float b() { return vec[2]; }
+	float x() const { return vec[0]; }
+	float y() const { return vec[1]; }
+	float z() const { return vec[2]; }
+	float r() const { return vec[0]; }
+	float g() const { return vec[1]; }
+	float b() const { return vec[2]; }
 
 	inline const vec3& operator+() const 
 	{ 

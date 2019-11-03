@@ -50,6 +50,13 @@ public :
 			return false;
 		}
 	}
+	virtual bool bounding_box(float time0, float time1, aabb& box) const
+	{
+		vec3 min = center - vec3(radius, radius, radius);
+		vec3 max = center + vec3(radius, radius, radius);
+		box = aabb(min, max);
+		return true;
+	}
 };
 
 #endif // !SPHERE

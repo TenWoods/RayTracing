@@ -52,5 +52,12 @@ public :
 		return false;
 	}
 
+	virtual bool bounding_box(float time0, float time1, aabb& box) const
+	{
+		aabb box0 = aabb(center_0 - vec3(radius, radius, radius), center_0 + vec3(radius, radius, radius));
+		aabb box1 = aabb(center_1 - vec3(radius, radius, radius), center_1 + vec3(radius, radius, radius));
+		box = surrounding_box(box0, box1);
+		return true;
+	}
 };
 #endif // !MOVE_SPHERE

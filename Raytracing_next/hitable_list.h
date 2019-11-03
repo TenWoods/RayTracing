@@ -31,6 +31,27 @@ public :
 		}
 		return hit_result;
 	}
+	virtual bool bounding_box(float time0, float time1, aabb& box) const
+	{
+		if (list_size < 1)
+			return false;
+		aabb temp;
+		bool first_test = list[0]->bounding_box(time0, time1, temp);
+		if (!first_test)
+			return false;
+		else
+			box = temp;
+		for (int i = 1; i < list_size; i++)
+		{
+			if (list[i]->bounding_box(time0, time1, temp))
+			{
+				box = surrounding_box(box, temp);
+			}
+			else
+				return false;
+		}
+		return true;
+	}
 };
 
 #endif // !HITABLELIST
