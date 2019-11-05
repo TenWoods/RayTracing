@@ -4,8 +4,6 @@
 #include "ray.h"
 #include "random.h"
 
-const float PI = 3.1415926f;
-
 class camera
 {
 private :
@@ -16,6 +14,7 @@ private :
 	float lens_radius;
 	vec3 u, w, v;
 	float time_0, time_1;
+	const float PI = 3.1415926f;
 public : 
 	camera(vec3 lookfrom, vec3 lookat, vec3 vUp, float fov, float aspect, float aperture, float focus_distance, float time0, float time1)
 	{

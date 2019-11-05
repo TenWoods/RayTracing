@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include "ray.h"
 #include "hitable_list.h"
 #include "sphere.h"
@@ -6,14 +7,20 @@
 #include "camera.h"
 #include "material.h"
 #include <fstream>
+#include "stb_image.h"
+#include <string>
+#include "rectangles.h"
 
 const int width = 800;
 const int height = 600;
-const int sampleNum = 10;
+const int sampleNum = 20;
 
 vec3 paint(const ray& r, hitable* world, int depth);
 hitable* scene();
 hitable* twoperlin();
+hitable* image_sphere();
+hitable* light_sphere();
+hitable* room();
 
 int main()
 { 
@@ -25,12 +32,12 @@ int main()
 		return -1;
 	}
 	file << "P3\n" << width << " " << height << std::endl << "255" << std::endl;
-	vec3 lookfrom(13.0f, 2.0f, 3.0f);
-	vec3 lookat(0.0f, 0.0f, 0.0f);
+	vec3 lookfrom(278.0f, 278.0f, -800.0f);
+	vec3 lookat(278.0f, 278.0f, 0.0f);
 	float distance_to_focus = 10.0f;
 	float aperture = 0.0f;
-	camera c(lookfrom, lookat, vec3(0.0f, 1.0f, 0.0f), 20.0f, float(width) / float(height), aperture, distance_to_focus, 0.0f, 1.0f);
-	hitable* world = twoperlin();
+	camera c(lookfrom, lookat, vec3(0.0f, 1.0f, 0.0f), 40.0f, float(width) / float(height), aperture, distance_to_focus, 0.0f, 1.0f);
+	hitable* world = room();
 	for (int i = height - 1; i >= 0; i--)
 	{
 		for (int j = 0; j < width; j++)
@@ -61,20 +68,22 @@ vec3 paint(const ray& r, hitable* world, int depth)
 	{
 		ray scattered;
 		vec3 attenuation;
+		vec3 emit = rec.material_ptr->emitted(rec.u, rec.v, rec.p);
 		if (depth < 50 && rec.material_ptr->scatter(r, rec, attenuation, scattered)) 
 		{
-			return attenuation * paint(scattered, world, depth + 1);
+			return emit + attenuation * paint(scattered, world, depth + 1);
 		}
 		else 
 		{
-			return vec3(0.0f, 0.0f, 0.0f);
+			return emit;
 		}
 	}
 	else 
 	{
-		vec3 unit_direction = normalized_vector(r.direction());
+		/*vec3 unit_direction = normalized_vector(r.direction());
 		float t = 0.5 * (unit_direction.y() + 1.0);
-		return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);
+		return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);*/
+		return vec3(0.0f, 0.0f, 0.0f);
 	}
 }
 
@@ -87,6 +96,47 @@ hitable* twoperlin()
 	list[0] = new sphere(1000.0f, vec3(0.0f, -1000.0f, 0.0f), new lambertian(pertex));
 	list[1] = new sphere(2.0f, vec3(0.0f, 2.0f, 0.0f), new lambertian(pertex));
 	return new hitable_list(list, 2);
+}
+
+hitable* image_sphere()
+{
+	int nx, ny, nn;
+	unsigned char* data = stbi_load("earthmap.png", &nx, &ny, &nn, 0);
+	std::cout << nx << ' ' << ny << ' ' << nn << std::endl;
+	if (data == NULL)
+	{
+		std::cout << "load image error";
+		return NULL;
+	}
+	hitable* earth = new sphere(2.0f, vec3(0.0f, 0.0f, 0.0f), new lambertian(new image_texture(data, ny, nx, nn)));
+	return earth;
+}
+
+hitable* light_sphere()
+{
+	texture* pertex = new noise_texture(4.0f);
+	hitable** list = new hitable * [3];
+	list[0] = new xy_rectangle(3.0f, 5.0f, 1.0f, 3.0f, -2.0f, new diffuse_light(new const_texture(vec3(1.0f, 1.0f, 1.0f))));
+	list[1] = new sphere(1000, vec3(0, -1000, 0), new lambertian(pertex));
+	list[2] = new sphere(2, vec3(0, 2, 0), new lambertian(pertex));
+	return new hitable_list(list, 3);
+}
+
+hitable* room()
+{
+	material* red = new lambertian(new const_texture(vec3(0.65f, 0.05f, 0.05f)));
+	material* white = new lambertian(new const_texture(vec3(1.0f, 1.0f, 1.0f)));
+	material* green = new lambertian(new const_texture(vec3(0.12f, 0.45f, 0.15f)));
+	material* light = new diffuse_light(new const_texture(vec3(1.0f, 1.0f, 1.0f)));
+	hitable** list = new hitable*[5];
+	int i = 0;
+	list[i++] = new flip_normal(new yz_rectangle(0, 555, 0, 555, 555, green));
+	list[i++] = new yz_rectangle(0, 555, 0, 555, 0, red);
+	list[i++] = new xz_rectangle(213, 343, 227, 332, 554, light);
+	list[i++] = new flip_normal(new xz_rectangle(0, 555, 0, 555, 555, white));
+	list[i++] = new xz_rectangle(0, 555, 0, 555, 0, white);
+	list[i++] = new flip_normal(new xy_rectangle(0, 555, 0, 555, 555, white));
+	return new hitable_list(list, i);
 }
 
 hitable* scene()

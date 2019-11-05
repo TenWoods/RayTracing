@@ -2,6 +2,17 @@
 #define SPHERE
 #include "hitable.h"
 #include "material.h"
+#include <math.h>
+
+const float PI = 3.1415926f;
+
+void get_sphere_uv(const vec3& point, float* u, float* v)
+{
+	float phi = atan2(point.z(), point.x());
+	float theta = asin(point.y());
+	*u = 1 - (phi + PI) / (2 * PI);
+	*v = (theta + PI / 2) / PI;
+}
 
 class sphere : public hitable
 {
@@ -36,6 +47,7 @@ public :
 				rec.p = r.point_at_parameter(x);
 				rec.normal = (rec.p - center) / radius;
 				rec.material_ptr = m;
+				get_sphere_uv(rec.normal, &rec.u, &rec.v);
 				return true;
 			}
 			x = (-b + sqrt(delta)) / (2 * a);
@@ -45,6 +57,7 @@ public :
 				rec.p = r.point_at_parameter(x);
 				rec.normal = (rec.p - center) / radius;
 				rec.material_ptr = m;
+				get_sphere_uv(rec.normal, &rec.u, &rec.v);
 				return true;
 			}
 			return false;

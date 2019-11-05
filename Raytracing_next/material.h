@@ -9,6 +9,11 @@ class material
 {
 public :
 	virtual bool scatter(const ray& ray_in, hit_record& rec, vec3& attenuation, ray& scattered) const = 0;
+	//自发光(默认为黑色)
+	virtual vec3 emitted(float u, float v, const vec3& point) const
+	{
+		return vec3(0.0f, 0.0f, 0.0f);
+	}
 	//计算反射方向
 	vec3 reflect(vec3 in, vec3 normal) const
 	{
@@ -137,5 +142,23 @@ public:
 		return r0 + (1 - r0) * pow((1 - cosine), 5);
 	}
 
+};
+
+//光源
+class diffuse_light : public material
+{
+private :
+	texture* tex;
+public :
+	diffuse_light() {}
+	diffuse_light(texture* t) : tex(t) {}
+	virtual bool scatter(const ray& ray_in, hit_record& rec, vec3& attenuation, ray& scattered) const
+	{
+		return false;
+	}
+	virtual vec3 emitted(float u, float v, const vec3& point) const
+	{
+		return tex->value(u, v, point);
+	}
 };
 #endif
