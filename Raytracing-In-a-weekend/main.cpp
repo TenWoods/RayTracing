@@ -5,8 +5,8 @@
 #include "camera.h"
 #include "material.h"
 
-const int width = 200;
-const int height = 100;
+const int width = 400;
+const int height = 300;
 const int sampleNum = 10;
 
 vec3 paint(const ray& r, hitable* world, int depth);

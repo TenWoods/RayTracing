@@ -34,11 +34,11 @@ public :
 	bool refract(const vec3& in, const vec3& normal, float ni_over_no, vec3& refracted) const
 	{
 		vec3 nin = normalized_vector(in);
-		float dt = dot(nin, normal);
-		float discriminant = 1.0f - ni_over_no * ni_over_no * (1.0f - dt * dt);
-		if (discriminant > 0)
+		float cosi = dot(nin, normal);
+		float cost = 1.0f - ni_over_no * ni_over_no * (1.0f - cosi * cosi);
+		if (cost > 0)
 		{
-			refracted = ni_over_no * (nin - normal * dt) - normal * sqrt(discriminant);
+			refracted = ni_over_no * (nin - normal * cosi) - normal * sqrt(cost);
 			return true;
 		}
 		return false;
@@ -109,7 +109,7 @@ public:
 			outward_normal = -rec.normal;
 			ni_over_no = ref_idx;
 			cosine = dot(ray_in.direction(), rec.normal) / ray_in.direction().length();
-			cosine = sqrt(1 - ref_idx * ref_idx * (1 - cosine * cosine));
+			//cosine = sqrt(1 - ref_idx * ref_idx * (1 - cosine * cosine));
 		}
 		else
 		{

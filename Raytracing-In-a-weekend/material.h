@@ -103,7 +103,7 @@ public:
 			outward_normal = -rec.normal;
 			ni_over_no = ref_idx;
 			cosine = dot(ray_in.direction(), rec.normal) / ray_in.direction().length();
-			cosine = sqrt(1 - ref_idx * ref_idx * (1 - cosine * cosine));
+			//cosine = sqrt(1 - ref_idx * ref_idx * (1 - cosine * cosine));
 		}
 		else
 		{

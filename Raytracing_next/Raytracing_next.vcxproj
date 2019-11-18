@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h" />
+    <ClInclude Include="box.h" />
     <ClInclude Include="bvh_node.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="hitable.h" />
@@ -133,9 +134,11 @@
     <ClInclude Include="perlin.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="ray.h" />
+    <ClInclude Include="rotate.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="translate.h" />
     <ClInclude Include="vec3.h" />
     <ClInclude Include="rectangles.h" />
   </ItemGroup>

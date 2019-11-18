@@ -10,10 +10,11 @@
 #include "stb_image.h"
 #include <string>
 #include "rectangles.h"
+#include "box.h"
 
-const int width = 800;
-const int height = 600;
-const int sampleNum = 20;
+const int width = 400;
+const int height = 300;
+const int sampleNum = 10;
 
 vec3 paint(const ray& r, hitable* world, int depth);
 hitable* scene();
@@ -128,7 +129,7 @@ hitable* room()
 	material* white = new lambertian(new const_texture(vec3(1.0f, 1.0f, 1.0f)));
 	material* green = new lambertian(new const_texture(vec3(0.12f, 0.45f, 0.15f)));
 	material* light = new diffuse_light(new const_texture(vec3(1.0f, 1.0f, 1.0f)));
-	hitable** list = new hitable*[5];
+	hitable** list = new hitable*[8];
 	int i = 0;
 	list[i++] = new flip_normal(new yz_rectangle(0, 555, 0, 555, 555, green));
 	list[i++] = new yz_rectangle(0, 555, 0, 555, 0, red);
@@ -136,6 +137,8 @@ hitable* room()
 	list[i++] = new flip_normal(new xz_rectangle(0, 555, 0, 555, 555, white));
 	list[i++] = new xz_rectangle(0, 555, 0, 555, 0, white);
 	list[i++] = new flip_normal(new xy_rectangle(0, 555, 0, 555, 555, white));
+	list[i++] = new box(vec3(130, 0, 65), vec3(295, 165, 230), white);
+	list[i++] = new box(vec3(265, 0, 295), vec3(430, 330, 460), white);
 	return new hitable_list(list, i);
 }
 
