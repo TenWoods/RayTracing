@@ -25,6 +25,42 @@ inline float perlin_interp(vec3 gradient[2][2][2], float u, float v, float w)
 	return result;
 }
 
+
+static vec3* perlin_generate()
+{
+	vec3* p = new vec3[256];
+	for (int i = 0; i < 256; ++i)
+	{
+		float x = 2.0f * random_float() - 1.0f;
+		float y = 2.0f * random_float() - 1.0f;
+		float z = 2.0f * random_float() - 1.0f;
+		p[i] = normalized_vector(vec3(x, y, z));
+	}
+	return p;
+}
+
+static void permute(int* p, int n)
+{
+	for (int i = n - 1; i > 0; i--)
+	{
+		int target = int(random_float() * (i + 1));
+		int temp = p[target];
+		p[target] = p[i];
+		p[i] = temp;
+	}
+}
+
+static int* perlin_generate_perm()
+{
+	int* perm = new int[256];
+	for (int i = 0; i < 256; i++)
+	{
+		perm[i] = i;
+	}
+	permute(perm, 256);
+	return perm;
+}
+
 class perlin
 {
 private :
@@ -69,43 +105,3 @@ public :
 		return fabs(result);
 	}
 };
-
-static vec3* perlin_generate()
-{
-	vec3* p = new vec3[256];
-	for (int i = 0; i < 256; ++i)
-	{
-		float x = 2.0f * random_float() - 1.0f;
-		float y = 2.0f * random_float() - 1.0f;
-		float z = 2.0f * random_float() - 1.0f;
-		p[i] = normalized_vector(vec3(x, y, z));
-	}
-	return p;
-}
-
-void permute(int* p, int n)
-{
-	for (int i = n - 1; i > 0; i--)
-	{
-		int target = int(random_float() * (i + 1));
-		int temp = p[target];
-		p[target] = p[i];
-		p[i] = temp;
-	}
-}
-
-static int* perlin_generate_perm()
-{
-	int* perm = new int[256];
-	for (int i = 0; i < 256; i++)
-	{
-		perm[i] = i;
-	}
-	permute(perm, 256);
-	return perm;
-}
-
-vec3* perlin::randomvec = perlin_generate();
-int* perlin::perm_x = perlin_generate_perm();
-int* perlin::perm_y = perlin_generate_perm();
-int* perlin::perm_z = perlin_generate_perm();

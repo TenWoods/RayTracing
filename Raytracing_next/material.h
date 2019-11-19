@@ -161,4 +161,5 @@ public :
 		return tex->value(u, v, point);
 	}
 };
+
 #endif

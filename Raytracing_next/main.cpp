@@ -11,6 +11,9 @@
 #include <string>
 #include "rectangles.h"
 #include "box.h"
+#include "translate.h"
+#include "rotate.h"
+#include "fog.h"
 
 const int width = 400;
 const int height = 300;
@@ -22,6 +25,7 @@ hitable* twoperlin();
 hitable* image_sphere();
 hitable* light_sphere();
 hitable* room();
+hitable* fog_room();
 
 int main()
 { 
@@ -38,7 +42,7 @@ int main()
 	float distance_to_focus = 10.0f;
 	float aperture = 0.0f;
 	camera c(lookfrom, lookat, vec3(0.0f, 1.0f, 0.0f), 40.0f, float(width) / float(height), aperture, distance_to_focus, 0.0f, 1.0f);
-	hitable* world = room();
+	hitable* world = image_sphere();
 	for (int i = height - 1; i >= 0; i--)
 	{
 		for (int j = 0; j < width; j++)
@@ -76,15 +80,16 @@ vec3 paint(const ray& r, hitable* world, int depth)
 		}
 		else 
 		{
-			return emit;
+			//return emit;
+			return vec3(0.0f, 0.0f, 0.0f);
 		}
 	}
 	else 
 	{
-		/*vec3 unit_direction = normalized_vector(r.direction());
+		vec3 unit_direction = normalized_vector(r.direction());
 		float t = 0.5 * (unit_direction.y() + 1.0);
-		return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);*/
-		return vec3(0.0f, 0.0f, 0.0f);
+		return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);
+		//return vec3(0.0f, 0.0f, 0.0f);
 	}
 }
 
@@ -139,6 +144,30 @@ hitable* room()
 	list[i++] = new flip_normal(new xy_rectangle(0, 555, 0, 555, 555, white));
 	list[i++] = new box(vec3(130, 0, 65), vec3(295, 165, 230), white);
 	list[i++] = new box(vec3(265, 0, 295), vec3(430, 330, 460), white);
+	return new hitable_list(list, i);
+}
+
+hitable* fog_room()
+{
+	hitable** list = new hitable * [8];
+	int i = 0;
+	material* red = new lambertian(new const_texture(vec3(0.65, 0.05, 0.05)));
+	material* white = new lambertian(new const_texture(vec3(0.73, 0.73, 0.73)));
+	material* green = new lambertian(new const_texture(vec3(0.12, 0.45, 0.15)));
+	material* light = new diffuse_light(new const_texture(vec3(7, 7, 7)));
+	list[i++] = new flip_normal(new yz_rectangle(0, 555, 0, 555, 555, green));
+	list[i++] = new yz_rectangle(0, 555, 0, 555, 0, red);
+	list[i++] = new xz_rectangle(113, 443, 127, 432, 554, light);
+	list[i++] = new flip_normal(new xz_rectangle(0, 555, 0, 555, 555, white));
+	list[i++] = new xz_rectangle(0, 555, 0, 555, 0, white);
+	list[i++] = new flip_normal(new xy_rectangle(0, 555, 0, 555, 555, white));
+
+	hitable* b1 = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 165, 165), white), -18), vec3(130, 0, 65));
+	hitable* b2 = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 330, 165), white), 15), vec3(265, 0, 295));
+
+	list[i++] = new constant_medium(b1, 0.01, new const_texture(vec3(1.0, 1.0, 1.0)));
+	list[i++] = new constant_medium(b2, 0.01, new const_texture(vec3(0.0, 0.0, 0.0)));
+
 	return new hitable_list(list, i);
 }
 
