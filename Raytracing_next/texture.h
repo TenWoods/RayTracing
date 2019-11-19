@@ -1,6 +1,8 @@
 #pragma once
+
 #include "vec3.h"
 #include "perlin.h"
+
 
 class texture
 {
@@ -69,7 +71,7 @@ private :
 	int nn;
 public :
 	image_texture() {}
-	image_texture(unsigned char* data, int width, int height, int channal) : _data(data), nx(width), ny(height), nn(channal) {}
+	image_texture(const char* dataPath);
 	virtual vec3 value(float u, float v, const vec3& point) const
 	{
 		int i = (1 - u) * nx;
@@ -82,9 +84,9 @@ public :
 			i = nx - 1;
 		if (j > ny - 1)
 			j = ny - 1;
-		float r = int(_data[i * nn + j * nn * nx]) / 255.0f;
-		float g = int(_data[i * nn + j * nn * nx + 1]) / 255.0f;
-		float b = int(_data[i * nn + j * nn * nx + 2]) / 255.0f;
+		float r = _data[i * nn + j * nn * nx] / 255.0f;
+		float g = _data[i * nn + j * nn * nx + 1] / 255.0f;
+		float b = _data[i * nn + j * nn * nx + 2] / 255.0f;
 		//std::cout << r << ' ' << g << ' ' << b << std::endl;
 		return vec3(r, g, b);
 	}

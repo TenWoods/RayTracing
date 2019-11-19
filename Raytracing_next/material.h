@@ -56,7 +56,7 @@ public:
 	{
 		vec3 next_direction = rec.p + rec.normal + random_sphere_point();
 		scattered = ray(rec.p, next_direction - rec.p, ray_in.time());
-		attenuation = albedo->value(0.0f, 0.0f, rec.p);
+		attenuation = albedo->value(rec.u, rec.v, rec.p);
 		return true;
 	}
 };

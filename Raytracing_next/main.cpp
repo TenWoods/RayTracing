@@ -1,4 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include "ray.h"
 #include "hitable_list.h"
 #include "sphere.h"
@@ -7,7 +6,6 @@
 #include "camera.h"
 #include "material.h"
 #include <fstream>
-#include "stb_image.h"
 #include <string>
 #include "rectangles.h"
 #include "box.h"
@@ -15,8 +13,8 @@
 #include "rotate.h"
 #include "fog.h"
 
-const int width = 400;
-const int height = 300;
+const int width = 1024;
+const int height = 512;
 const int sampleNum = 10;
 
 vec3 paint(const ray& r, hitable* world, int depth);
@@ -37,8 +35,10 @@ int main()
 		return -1;
 	}
 	file << "P3\n" << width << " " << height << std::endl << "255" << std::endl;
-	vec3 lookfrom(278.0f, 278.0f, -800.0f);
-	vec3 lookat(278.0f, 278.0f, 0.0f);
+	/*vec3 lookfrom(278.0f, 278.0f, -800.0f);
+	vec3 lookat(278.0f, 278.0f, 0.0f);*/
+	vec3 lookfrom(0, 0, 6);
+	vec3 lookat(0,0,0);
 	float distance_to_focus = 10.0f;
 	float aperture = 0.0f;
 	camera c(lookfrom, lookat, vec3(0.0f, 1.0f, 0.0f), 40.0f, float(width) / float(height), aperture, distance_to_focus, 0.0f, 1.0f);
@@ -106,15 +106,7 @@ hitable* twoperlin()
 
 hitable* image_sphere()
 {
-	int nx, ny, nn;
-	unsigned char* data = stbi_load("earthmap.png", &nx, &ny, &nn, 0);
-	std::cout << nx << ' ' << ny << ' ' << nn << std::endl;
-	if (data == NULL)
-	{
-		std::cout << "load image error";
-		return NULL;
-	}
-	hitable* earth = new sphere(2.0f, vec3(0.0f, 0.0f, 0.0f), new lambertian(new image_texture(data, ny, nx, nn)));
+	hitable* earth = new sphere(2.0f, vec3(0.0f, 0.0f, 0.0f), new lambertian(new image_texture("earthmap.jpg")));
 	return earth;
 }
 

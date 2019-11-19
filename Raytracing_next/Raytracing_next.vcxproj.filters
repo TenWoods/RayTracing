@@ -83,5 +83,8 @@
     <ClCompile Include="perlin.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

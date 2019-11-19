@@ -1,23 +1,37 @@
-﻿  main.cpp
+﻿  fog.h
+C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(77,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(78,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(79,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\texture.h(77,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\texture.h(78,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+  main.cpp
+C:\WorkPlace\RayTracing\Raytracing_next\fog.h(31,32): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\hitable_list.h(25,31): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(77,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(78,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(79,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
-C:\WorkPlace\RayTracing\Raytracing_next\texture.h(75,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
-C:\WorkPlace\RayTracing\Raytracing_next\texture.h(76,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\texture.h(77,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\texture.h(78,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\rotate.h(23,16): warning C4244:  “初始化”: 从“double”转换到“float”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\fog.h(31,32): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(72,5): warning C4305:  “参数”: 从“double”到“float”截断
 C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(90,11): warning C4244:  “初始化”: 从“double”转换到“float”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(91,15): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
 C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(91,66): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(154,72): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(155,74): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(156,74): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(168,83): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(169,83): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(178,128): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(178,167): warning C4305:  “参数”: 从“double”到“float”截断
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(185,50): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
-C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(185,18): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(146,72): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(147,74): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(148,74): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(160,83): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(161,83): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(170,128): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(170,167): warning C4305:  “参数”: 从“double”到“float”截断
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(177,50): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+  texture.cpp
+C:\WorkPlace\RayTracing\Raytracing_next\main.cpp(177,18): warning C4244:  “参数”: 从“double”转换到“float”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(77,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(78,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\perlin.h(79,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\WorkPlace\RayTracing\Raytracing_next\texture.h(77,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
+  正在生成代码...
+C:\WorkPlace\RayTracing\Raytracing_next\texture.h(78,9): warning C4244:  “初始化”: 从“float”转换到“int”，可能丢失数据
   Raytracing_next.vcxproj -> C:\WorkPlace\RayTracing\Raytracing_next\Debug\Raytracing_next.exe
