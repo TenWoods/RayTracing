@@ -10,42 +10,7 @@ private :
 	aabb _box;
 public :
 	bvh_node() {}
-	bvh_node(hitable** list, int n, float time0, float time1)
-	{
-		int axis = int(3 * random_float());
-		if (axis == 0)
-		{
-			qsort(list, sizeof(hitable*), n, compare_x);
-		}
-		else if (axis == 1)
-		{
-			qsort(list, sizeof(hitable*), n, compare_y);
-		}
-		else
-		{
-			qsort(list, sizeof(hitable*), n, compare_z);
-		}
-		if (n == 1)
-		{
-			left = right = list[0];
-		}
-		else if (n == 2)
-		{
-			left = list[0];
-			right = list[1];
-		}
-		else
-		{
-			left = new bvh_node(list, (n / 2), time0, time1);
-			right = new bvh_node(list + (n / 2), n - n / 2, time0, time1);
-		}
-		aabb box_left, box_right;
-		if (!left->bounding_box(time0, time1, box_left) || !right->bounding_box(time0, time1, box_right))
-		{
-			std::cerr << "no bounding box";
-		}
-		_box = surrounding_box(box_left, box_right);
-	}
+	bvh_node(hitable** list, int n, float time0, float time1);
 
 	virtual bool hit(const ray& r, float t_min, float t_max, hit_record& rec) const
 	{
@@ -143,4 +108,41 @@ int compare_z(const void* a, const void* b)
 	{
 		return 1;
 	}
+}
+
+bvh_node::bvh_node(hitable** list, int n, float time0, float time1)
+{
+	int axis = int(3 * random_float());
+	if (axis == 0)
+	{
+		qsort(list, n, sizeof(hitable*), compare_x);
+	}
+	else if (axis == 1)
+	{
+		qsort(list, n, sizeof(hitable*), compare_y);
+	}
+	else
+	{
+		qsort(list, n, sizeof(hitable*), compare_z);
+	}
+	if (n == 1)
+	{
+		left = right = list[0];
+	}
+	else if (n == 2)
+	{
+		left = list[0];
+		right = list[1];
+	}
+	else
+	{
+		left = new bvh_node(list, (n / 2), time0, time1);
+		right = new bvh_node(list + (n / 2), n - n / 2, time0, time1);
+	}
+	aabb box_left, box_right;
+	if (!left->bounding_box(time0, time1, box_left) || !right->bounding_box(time0, time1, box_right))
+	{
+		std::cerr << "no bounding box";
+	}
+	_box = surrounding_box(box_left, box_right);
 }

@@ -14,8 +14,8 @@
 #include "fog.h"
 #include "bvh_node.h"
 
-const int width = 800;
-const int height = 800;
+const int width = 400;
+const int height = 400;
 const int sampleNum = 100;
 
 vec3 paint(const ray& r, hitable* world, int depth);
@@ -173,7 +173,7 @@ hitable* final()
 	hitable** list = new hitable * [30];
 	hitable** boxlist = new hitable * [10000];
 	hitable** boxlist2 = new hitable * [10000];
-	material* white = new lambertian(new const_texture(vec3(0.73, 0.73, 0.73)));
+	material* white = new lambertian(new const_texture(vec3(1.0f, 1.0f, 1.0f)));
 	material* ground = new lambertian(new const_texture(vec3(0.48, 0.83, 0.53)));
 	int b = 0;
 	for (int i = 0; i < nb; i++) 
